@@ -22,6 +22,7 @@ def afficher_heure(heure_tuple):
          """)  
     while True:
         print(f"""              Il est actuellement : {heures:02d}h:{minutes:02d}m:{secondes:02d}s""", end="\r")
+        #Actualisation à chaque secondes
         time.sleep(1)
         secondes += 1
         if secondes >= 60:
@@ -33,10 +34,8 @@ def afficher_heure(heure_tuple):
         if heures >= 24:
             heures = 0
     
-#Déclaration des variables : 
 
-
-#Corps principal du programme : 
+#                               Corps principal du programme : 
 
 regler_heure = input("""
 Souhaitez-vous afficher l'heure locale ou définir une heure ?
@@ -60,6 +59,7 @@ Voici l'heure locale au format hh:mm:ss
         print("""              Il est actuellement :""", current_time, end="\r")
         #Actualisation à chaque secondes 
         time.sleep(1)
+
 #Définir l'heure au format hh:mm:ss
 if regler_heure == "No":
     #appel fonction
