@@ -7,47 +7,14 @@ Created on Tue Nov 28 2023
 #horloge
 """
 
-#Importation de fonctions externes (librairies) :
+#                      Importation de fonctions externes (librairies) :
 
 import time    
-    
-#Définition locale de fonctions : 
-
-def afficher_heure(heure_tuple): 
-    heures, minutes, secondes = heure_tuple
-    print (""" 
-
- Voici l'heure définie au format hh:mm:ss
-         
-         """)  
-    while True:
-        print(f"""              Il est actuellement : {heures:02d}h:{minutes:02d}m:{secondes:02d}s""", end="\r")
-        #Actualisation à chaque secondes
-        time.sleep(1)
-        secondes += 1
-        if secondes >= 60:
-            secondes = 0
-            minutes += 1
-        if minutes >= 60:
-            minutes = 0
-            heures += 1
-        if heures >= 24:
-            heures = 0
-    
-
-#                               Corps principal du programme : 
-
-regler_heure = input("""
-Souhaitez-vous afficher l'heure locale ou définir une heure ?
-
-=>  Entrez 'Yes' pour afficher l'heure locale.
-
-=>  Entrez 'No' pour définir une heure.                     
-
-====> : """)
-
-#Affichage de l'heure locale au format hh:mm:ss      
-if regler_heure == "Yes":
+import threading    
+#                          Définition locale de fonctions : 
+        
+                                    #Heure Locale
+def heure_locale():
     print (""" 
 
 Voici l'heure locale au format hh:mm:ss
@@ -60,9 +27,104 @@ Voici l'heure locale au format hh:mm:ss
         #Actualisation à chaque secondes 
         time.sleep(1)
 
-#Définir l'heure au format hh:mm:ss
-if regler_heure == "No":
+                                    #Heure définie
+def afficher_heure(heure_tuple): 
+    heures, minutes, secondes = heure_tuple
+    print (""" 
+
+Voici l'heure définie au format hh:mm:ss
+         
+         """)  
+    while True:
+        print(f"""             Il est actuellement : {heures:02d}h:{minutes:02d}m:{secondes:02d}s""", end="\r")
+        #Actualisation à chaque secondes
+        time.sleep(1)
+        secondes += 1
+        if secondes >= 60:
+            secondes = 0
+            minutes += 1
+        if minutes >= 60:
+            minutes = 0
+            heures += 1
+        if heures >= 24:
+            heures = 0
+    
+                                   
+                                     #Alarme
+                                    
+def regler_alarme(heure_alarme):
+    def alarme():
+        while regler_heure == "Yes":
+            t = time.localtime()
+            heure_locale = (t.tm_hour, t.tm_min, t.tm_sec)
+            if heure_locale >= heure_alarme:
+                print("""
+                      
+                      ==> ! ALARME ! <==
+                      """)
+                break
+            time.sleep(1)
+         #while regler_heure == "No"   
+    # Crée un nouveau thread pour exécuter la fonction d'alarme
+    thread_alarme = threading.Thread(target=alarme)
+    # Démarre le thread
+    thread_alarme.start()    
+
+#                             Corps principal du programme : 
+regler_heure = input("""
+Souhaitez-vous afficher l'heure locale ou définir une heure ?
+
+=>  Entrez 'Yes' pour afficher l'heure locale.
+
+=>  Entrez 'No' pour définir une heure.                     
+
+====> : """)
+
+alarme = input ("""
+Souhaitez-vous définir une alarme ?
+
+=>  Entrez 'Yes' pour définir une alarme.
+
+=>  Entrez 'No' pour passer cette étape.                     
+
+====> : """)
+
+#Affichage de l'heure locale au format hh:mm:ss avec alarme
+if regler_heure == "Yes" and alarme == "Yes":
+    
+    print ("""
+    Entrez les paramètres afin de définir l'heure de l'alarme :""")
+        #appel fonction
+    regler_alarme((int(input("""
+     Veuillez entrer une valeur pour l'heure :
+     => """)), int(input("""
+     Veuillez entrer une valeur pour les minutes :
+     => """)), int(input("""
+     Veuillez entrer une valeur pour les secondes :
+     => """))))   
     #appel fonction
+    heure_locale()
+    
+#Affichage de l'heure locale au format hh:mm:ss sans alarme
+if regler_heure == "Yes" and alarme == "No":   
+    #appel fonction
+    heure_locale()    
+
+#Définir l'heure au format hh:mm:ss avec alarme 
+if regler_heure == "No" and alarme == "Yes":
+    #appel fonction
+   print ("""
+    Entrez les paramètres afin de définir l'heure de l'alarme :""")
+        #appel fonction
+   regler_alarme((int(input("""
+     Veuillez entrer une valeur pour l'heure :
+     => """)), int(input("""
+     Veuillez entrer une valeur pour les minutes :
+     => """)), int(input("""
+     Veuillez entrer une valeur pour les secondes :
+     => """))))
+   print ("""
+Entrez les paramètres afin de définir l'heure désirée :""")  
    afficher_heure((int(input("""
 Veuillez entrez une valeur pour l'heure :
 => """)), int(input("""
@@ -71,3 +133,18 @@ Veuillez entrer une valeur pour les minutes :
 Veuillez entrer une valeur pour les secondes :
 => """))))
    
+
+#Définir l'heure au format hh:mm:ss sans alarme
+if regler_heure == "No" and alarme == "No":
+   print ("""
+Entrez les paramètres afin de définir l'heure désirée :""")
+    #appel fonction
+   afficher_heure((int(input("""
+Veuillez entrez une valeur pour l'heure :
+=> """)), int(input("""
+Veuillez entrer une valeur pour les minutes :
+=> """)), int(input("""
+Veuillez entrer une valeur pour les secondes :
+=> """))))
+    
+
