@@ -11,9 +11,8 @@ Created on Tue Nov 28 2023
 
 import time  
 from datetime import datetime  
-import threading    
-#                          Définition locale de fonctions : 
-        
+import threading 
+   
                                     #Heure Locale
 def heure_locale():
     if mode_affichage == "No":
@@ -31,7 +30,7 @@ def heure_locale():
     if mode_affichage == "Yes":
         print ("""
                
-Voici l'heure définie au format hh:mm:ss AM/PM
+    Voici l'heure définie au format hh:mm:ss AM/PM
 
 """)  
 
@@ -132,7 +131,7 @@ Souhaitez-vous définir une alarme ?
 
 ====> : """)
 
-mode_affichage = input(f"""
+mode_affichage = input("""
 Souhaitez-vous l'heure au format 12 ou 24 ?
 
 =>  Entrez 'Yes' pour un format 12h.
