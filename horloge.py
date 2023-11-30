@@ -7,7 +7,7 @@ Created on Tue Nov 28 2023
 #horloge
 """
 
-#                      Importation de fonctions externes (librairies) :
+#                     Importation de fonctions externes (librairies) :
 
 import time  
 from datetime import datetime  
